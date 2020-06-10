@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.dao.ReaderCardDao">
+    <select id="getIdMatchCount" resultType="int">
+        select count(*) from reader_card where
+        reader_id = #{readerId} and password = #{password}
+    </select>
+    <select id="findReaderByReaderId" resultType="com.library.bean.ReaderCard" parameterType="long">
+        select * from reader_card where reader_id = #{readerId}
+    </select>
+    <update id="resetPassword">
+        update reader_card set password = #{newPassword}
+        where reader_id = #{readerId}
+    </update>
+    <select id="getPassword" resultType="String" parameterType="long">
+        select password from reader_card where reader_id = #{readerId}
+    </select>
+    <insert id="addReaderCard">
+        insert into reader_card values
+        (#{readerId}, #{username}, #{password})
+    </insert>
+    <delete id="deleteReaderCard" parameterType="long">
+        delete from reader_card where reader_id = #{readerId}
+    </delete>
+    <insert id="insertUser" parameterType="com.library.bean.ReaderCard">
+        insert into reader_card
+        values(#{readerId},#{username},#{password})
+    </insert>
+</mapper>
